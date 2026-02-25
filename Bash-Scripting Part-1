@@ -1,0 +1,109 @@
+Bash-Scripting Part-1
+
+Scripting is used to automate the tasks.
+
+For to do regular task we will use scripting
+Ex: Disk check, web servers are in running or not, to know the particular information in CPU, check processors, etc
+
+Instead of doing whatever the Linux Admins will do manual tasks work to do the work automate we will use scripting
+
+For Scripting we should t know
+Bash for Linux
+Python
+Zsh(Zshell)
+Fish(Friendly Interacive shell)
+Ksh: korn shell
+Csh: C shell
+TCSH(Tenex C shell)
+Powershell for windows
+
+in now a days most of the interviews they are asking Bash & Python
+
+
+Without knowing Python In Interviews we can say answer in previous project we used Bash
+
+[root@ip-172-31-17-134 ~]# cat /etc/shells--------------------> command to view types of shells which shell will support
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+/bin/csh
+/bin/tcsh
+/usr/bin/csh
+/usr/bin/tcsh
+[root@ip-172-31-17-134 ~]
+
+[root@ip-172-31-17-134 ~]# ps -p $$--------------> command to view current shell
+    PID TTY          TIME CMD
+   2012 pts/1    00:00:00 bash
+[root@ip-172-31-17-134 ~]#
+
+
+every script starts with shebang(means #!)
+
+vim babu.sh
+
+#! /bin/bash
+echo "my name is pranay and i am learning bash"
+
+:wq
+
+now execute the file
+
+[root@ip-172-31-17-134 ~]# vim babu.sh
+[root@ip-172-31-17-134 ~]# sh babu.sh--------> command to execute the file in bash
+my name is pranay and i am learning bash
+[root@ip-172-31-17-134 ~]#
+
+there are different types to execute the file in bash scripting
+
+[root@ip-172-31-17-134 ~]# bash babu.sh-------------> alternative to execute the file in bash
+my name is pranay and i am learning bash
+[root@ip-172-31-17-134 ~]#
+
+./babu.sh--------> for this type of execute the file need x permissions
+
+[root@ip-172-31-17-134 ~]# ./babu.sh
+-bash: ./babu.sh: Permission denied
+[root@ip-172-31-17-134 ~]# chmod +x babu.sh
+[root@ip-172-31-17-134 ~]# ./babu.sh
+my name is pranay and i am learning bash
+[root@ip-172-31-17-134 ~]#
+
+now file has been executed
+
+vim babu.sh
+#! /bin/bash
+echo -e "my name is pranay \n and i am\tlearning bash"
+
+:wq
+
+[root@ip-172-31-17-134 ~]# vim babu.sh
+[root@ip-172-31-17-134 ~]# sh babu.sh
+my name is pranay 
+ and i am       learning bash
+[root@ip-172-31-17-134 ~]#
+
+to perform \n & \t before starting line we need to give -e
+
+By using variable like below
+
+vim babu.sh
+
+#! /bin/bash
+
+person="pranay"
+tool="linux"
+
+echo -e "my name is $person, \n I am learning\t$tool & shell scripting"
+
+:wq
+
+[root@ip-172-31-17-134 ~]# sh babu.sh
+my name is pranay, 
+ I am learning  linux & shell scripting
+[root@ip-172-31-17-134 ~]#
+
+
+
+
