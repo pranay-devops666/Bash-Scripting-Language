@@ -1,6 +1,7 @@
 Bash-Scripting Part-1
 
 Scripting is used to automate the tasks.
+=======================================
 
 For to do regular task we will use scripting
 Ex: Disk check, web servers are in running or not, to know the particular information in CPU, check processors, etc
@@ -103,6 +104,334 @@ echo -e "my name is $person, \n I am learning\t$tool & shell scripting"
 my name is pranay, 
  I am learning  linux & shell scripting
 [root@ip-172-31-17-134 ~]#
+
+this above way is the process to pass the variables
+
+now we need to pass the variables dynamically is means values should to be asked to me while executing the script
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "please enter your name"
+read abc
+
+echo "please enter your password"
+read pass
+
+echo "your name is $abc and your password is $pass"
+
+:wq
+
+sh bash.sh---------> command to execute the file
+
+[root@ip-172-31-1-106 ~]# ./bash.sh 
+please enter your name
+pranay
+please enter your password
+Pranay@1409
+your name is pranay and your password is Pranay@1409
+[root@ip-172-31-1-106 ~]# 
+
+In Linux standard rule is password shouldn't be visible in here password is visible, to avoid showing password visible is we can use read -sp (this means silent prompt)
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "please enter your name"
+read abc
+
+read -sp "please enter your password" pass
+
+echo "your name is $abc and your password is $pass"
+
+:wq
+
+
+[root@ip-172-31-1-106 ~]# ./bash.sh 
+please enter your name
+pranay
+please enter your passwordyour name is pranay and your password is Pranay@1409
+
+here one fault is there upto password should print in line line and remaining from your to pranay@1409 should be print in new line 
+
+for that we use like this below
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "please enter your name"
+read abc
+
+read -sp "please enter your password" pass
+
+echo -e \n"your name is $abc and your password is $pass"
+
+:wq
+
+[root@ip-172-31-1-106 ~]# ./bash.sh 
+please enter your name
+pranay
+please enter your passwordnyour name is pranay and your password is Pranay@1409
+[root@ip-172-31-1-106 ~]# vim bash.sh 
+[root@ip-172-31-1-106 ~]#
+
+lets pass some aurguments
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "I learned SCM tool as $1"
+echo "I learned CI/CD tool as $2"
+echo "I worked on IAC tool called $3"
+echo "I worked on containerzation called $4"
+
+echo "Now My Tech stack is $@"--------------> if we want to print all the arguments we will use $@
+
+echo "All the values are present in $0"------------> to print the file name we will use @0
+
+:wq
+
+[root@ip-172-31-1-106 ~]# ./bash.sh GIT Jenkins Terraform Docker
+I learned SCM tool as GIT
+I learned CI/CD tool as Jenkins
+I worked on IAC tool called Terraform
+I worked on containerzation called Docker
+Now My Tech stack is GIT Jenkins Terraform Docker
+All the values are present in ./bash.sh
+[root@ip-172-31-1-106 ~]#
+
+conditions
+=============
+
+* if condiction in it it has 3 types
+-> IF condition
+-> ELSE
+-> ELSE IF
+-> NESTED IF
+
+* when condiction
+*
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter your age"
+read age
+
+if [[ $age -le 18 ]];
+then    
+        echo "Not eleigible for Vote!"
+fi
+
+:wq
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your age
+28
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter your age"
+read age
+
+if [[ $age -le 18 ]];
+then
+        echo "Not eleigible for Vote!"
+else
+        echo "You are eligible for Vote"
+fi
+
+:wq
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your age
+28
+You are eligible for Vote
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your age
+14
+Not eleigible for Vote!
+
+else if 
+===============
+
+for suppose if you have multiple conditions
+
+in that such case we will use else if
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter your score"
+read score
+
+if [[ $score -eq 100 ]];
+then    
+        echo "you got 3rd price"
+elif [[ $score -eq 200 ]];
+then
+        echo "you got 3rd price"
+elif [[ $score -eq 300 ]];
+then
+        echo "you got 1st price"
+else    
+        echo "Please Try Again"
+fi
+
+:wq
+
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your score
+100
+you got 3rd price
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your score
+200
+you got 2nd price
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your score
+300
+you got 1st price
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Enter your score
+400
+Please Try Again
+[root@ip-172-31-1-106 ~]#
+
+NESTED IF
+==========
+
+This means condition within the condiction
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Eneter Your Email"
+read email
+
+if [[ $email == "gorantlapranay8@gmail.com" ]];
+then    
+        read -sp "Enter Password" password
+        if [[ $password == "admin@123" ]];
+        then    
+                echo "Login Success"
+        else    
+                echo "Please Enter Correct Password"
+        fi      
+else
+        echo "Please Enetr Correct Email"
+fi
+
+:wq
+
+email-------------> fail-------> success
+
+password enter---------> correct-------> wrong
+
+password enter --------> login success-----> please use corret password
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Eneter Your Email"
+read email
+
+if [[ $email == "gorantlapranay8@gmail.com" ]];
+then    
+        read -sp "Enter Password" password
+        if [[ $password == "admin@123" ]];
+        then    
+                echo -e "\nLogin Success"
+        else    
+                echo -e "\nPlease Enter Correct Password"
+        fi      
+else
+        echo "Please Enetr Correct Email"
+fi
+
+:wq
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Eneter Your Email
+gorantlapranay8@gmail.com
+Enter Password
+Login Success
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Eneter Your Email
+gorantlapranay8@gmail.com
+Enter Password
+Please Enter Correct Password
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+Eneter Your Email
+gorantlapranay8@gmai                                             
+Please Enetr Correct Email
+
+-z ------------> it is used to represent an empty string, used to find an empty string
+
+eq ------------> to compare 2 numbers
+== ------------> 2 strings compare
+
+lt ------------> represents less than
+gt ------------> represents greater than
+le ------------> less than or equal to
+ge ------------> greatet than or equal to
+
+all above those are for numbers only
+
+for string 
+===========
+
+== ---------------> equal to
+!= ---------------> not equal to
+
+vim bash.sh
+
+#! /bin/bash
+
+name = ""
+
+if [[ -z $name ]];
+then
+        echo "This is Empty String"
+else    
+        echo "This is Non-empty String"
+fi
+
+:wq
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+This is Empty variable
+
+vim bash.sh
+
+#! /bin/bash
+
+name="pranay"
+
+if [[ -z $name ]];
+then
+        echo "This is Empty String"
+else    
+        echo "This is Non-empty String"
+fi
+
+:wq
+
+[root@ip-172-31-1-106 ~]# sh bash.sh 
+This is Non-empty String
+
 
 
 
