@@ -432,6 +432,267 @@ fi
 [root@ip-172-31-1-106 ~]# sh bash.sh 
 This is Non-empty String
 
+&& -------> AND AND
+|| -------> OR
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter username"
+read user
+
+read -sp "Enter Password" password
+
+if [[ $user == "pranay" && $password == "DevOps" ]];
+then
+        echo -e "\nLogin success"
+else    
+        echo -e "\n Please use valid credentials"
+fi
+
+:wq
+
+[root@ip-172-31-13-80 ~]# vim bash.sh
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+pranay
+Enter Password
+Login success
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+myuser
+Enter Password
+ Please use valid credentials
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+pranay
+Enter Password
+ Please use valid credentials
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter username"
+read user
+
+read -sp "Enter Password" password
+
+if [[ $user == "pranay" || $password == "DevOps" ]];
+then
+        echo -e "\nLogin success"
+else    
+        echo -e "\n Please use valid credentials"
+fi
+
+:wq
+
+[root@ip-172-31-13-80 ~]# vim bash.sh
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+pranay
+Enter Password
+Login success
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+hedgvdb
+Enter Password
+Login success
+[root@ip-172-31-13-80 ~]# sh bash.sh
+Enter username
+jdhbnd
+Enter Password
+ Please use valid credentials
+
+Now i wnat to know wheather the particular file is present or not
+
+write a scrip to find a file
+
+vim bash.sh
+
+#! /bin/bash
+
+file_path="/root/linux/azure.pdf"
+if [[ -e $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+[root@ip-172-31-13-80 ~]# sh bash.sh
+File Exist
+
+if we want to pass dynamically lik ethis below
+
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter the file"
+read file_path
+if [[ -e $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+if we want to know read permissions we will give -r
+
+vim bash.sh
+
+#! /bin/bash
+
+echo "Enter the file"
+read file_path
+if [[ -r $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+
+i wnat to see folder
+
+vim bash.sh
+#! /bin/bash
+
+file_path="/root/linux/folder"
+if [[ -e $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+for to know only directories we will use -d
+
+vim bash.sh
+#! /bin/bash
+
+file_path="/root/linux/folder"
+if [[ -d $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+for to know only files we will use -f
+
+vim bash.sh
+#! /bin/bash
+
+file_path="/root/linux/folder"
+if [[ -f $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+to know the write permissions we will use -w
+
+vim bash.sh
+#! /bin/bash
+
+file_path="/root/linux/folder"
+if [[ -w $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+to know the x permissions we will use -x
+
+vim bash.sh
+#! /bin/bash
+
+file_path="/root/linux/folder"
+if [[ -x $file_path ]];
+then
+        echo "File Exist"
+else    
+        echo "File doesn't Exist"
+fi
+
+:wq
+
+Loops
+=========
+
+there are two types of Loops
+
+1. FOR LOOP-----------> we will pass the values avvi finish ayye varaku iterate avthune untai
+2. WHILE LOOP---------> it has a condition adi satisfy ayye varaku iterate avthundhi
+
+
+1. for loop
+============
+
+vim bash.sh
+
+#! /bin/bash
+
+for i in {1..10}
+do
+        echo "The value is $i"
+done
+
+:wq
+
+[root@ip-172-31-13-80 ~]# sh bash.sh
+The value is 1
+The value is 2
+The value is 3
+The value is 4
+The value is 5
+The value is 6
+The value is 7
+The value is 8
+The value is 9
+The value is 10
+
+vim bash.sh
+
+#! /bin/bash
+
+count=0
+while [[ $count -lt 5 ]]
+do
+        echo $count
+count=$((count+1))
+done
+
+:wq
+
+[root@ip-172-31-13-80 ~]# sh bash.sh
+0
+1
+2
+3
+4
+
+
 
 
 
