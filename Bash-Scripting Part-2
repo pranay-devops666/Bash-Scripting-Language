@@ -2,3 +2,85 @@ Bash-Scripting Part-2
 
 Scripting is used to automate the tasks.
 ==========================================
+
+
+ I want to print a script which user i am in
+==============================================
+
+if we want to give any command in a script 
+
+we will use dollar of like this $() in the brackets we nee dto give command
+
+
+vim bash.sh
+
+#! /bin/bash
+
+if [[ $(whoami) == "root" ]];
+then    
+        echo "you are in root user"
+else
+        echo "you are non-root user"
+fi  
+
+:wq
+
+
+[root@ip-172-31-8-170 ~]# vim bash.sh
+[root@ip-172-31-8-170 ~]# sh bash.sh 
+you are in root user
+
+check execute in ec2-user also like below
+
+[ec2-user@ip-172-31-8-170 ~]$ vim bash.sh
+[ec2-user@ip-172-31-8-170 ~]$ sh bash.sh
+you are non-root user
+[ec2-user@ip-172-31-8-170 ~]$
+
+Now i want to create multiple folders by using script
+==========================================================
+
+vim bash.sh
+
+#! /bin/bash
+
+name=$1
+starts=$2
+end=$3
+
+eval mkdir $name{$starts..$ends}
+
+:wq
+
+[root@ip-172-31-8-170 ~]# vim bash.sh
+[root@ip-172-31-8-170 ~]# sh bash.sh  git 3 7
+[root@ip-172-31-8-170 ~]# ll
+total 4
+-rw-r--r--. 1 root root 74 Feb 27 11:28 bash.sh
+drwxr-xr-x. 2 root root  6 Feb 27 11:28 git{3..}
+drwxr-xr-x. 2 root root  6 Feb 27 11:27 {..}
+[root@ip-172-31-8-170 ~]#
+
+frequently askedquestion in bash scripting is
+
+1. write a script to take a backup of log files
+
+vim bash.sh
+
+#! /bin/bash
+
+src=/var/log/httpd/access.log
+dest=/root/mybackup
+
+time=$(date +"%Y-%m-%d-%H-%M-%S")
+backupfile=$dest/$time.tgz
+
+tar zxvf $backupfile --absolute-names $src
+
+:wq
+[root@ip-172-31-8-170 ~]# mkdir mybackup
+[root@ip-172-31-8-170 ~]# ll /var/log/httpd/
+ls: cannot access '/var/log/httpd/': No such file or directory
+[root@ip-172-31-8-170 ~]# yum install httpd -y && systemctl start httpd
+
+
